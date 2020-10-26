@@ -22,3 +22,5 @@ class Component {
   }
 }
 const snake = new Component(30, 30, "red", 0, 110);
+
+testing;
