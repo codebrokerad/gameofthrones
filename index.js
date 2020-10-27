@@ -29,6 +29,8 @@ const snake_border = "darkred";
 
 // Main function
 main();
+gen_food();
+
 document.addEventListener("keydown", change_direction);
 
 function main() {
@@ -37,6 +39,7 @@ function main() {
     changing_direction = false;
     setTimeout(function onTick() {
     clearCanvas();
+    drawFood();
     move_snake();
     drawSnake();
     main();
@@ -72,6 +75,12 @@ function drawSnake() {
   snake.forEach(drawSnakeBody);
 }
 
+function drawFood() {
+  ctx.fillStyle = 'lightgreen';
+  ctx.strokestyle = 'darkgreen';
+  ctx.fillRect(food_x, food_y, 5, 5);
+  ctx.strokeRect(food_x, food_y, 1, 1);
+}
 
 // Draw one snake part
 function drawSnakeBody(snakeBody) {
@@ -98,6 +107,22 @@ function has_game_ended() {
   return hitLeftWall || hitRightWall || hitToptWall || hitBottomWall
 }
 
+function random_food(min, max) {
+  return Math.round((Math.random() * (max-min) + min) / 10) * 10;
+}
+
+function gen_food() {
+  // Generate a random number the food x-coordinate
+  food_x = random_food(0, canvas.width - 10);
+  // Generate a random number for the food y-coordinate
+  food_y = random_food(0, canvas.height - 10);
+  // if the new food location is where the snake currently is, generate a new food location
+  snake.forEach(function has_snake_eaten_food(part) {
+    const has_eaten = part.x == food_x && part.y == food_y;
+    if (has_eaten) gen_food();
+  });
+}
+
 function change_direction(e) 
 {  
    const LEFT_KEY = 37;
@@ -108,7 +133,7 @@ function change_direction(e)
    if (changing_direction) return;
       changing_direction = true;
    const keyPressed = e.keyCode;
-   const goingUp = dy === -0;
+   const goingUp = dy === -10;
    const goingDown = dy === 10;
    const goingRight = dx === 10;  
    const goingLeft = dx === -10;
@@ -146,6 +171,7 @@ function move_snake() {
   snake.unshift(head);
   snake.pop();
 }
+
 
 
 
