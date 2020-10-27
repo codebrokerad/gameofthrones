@@ -10,17 +10,26 @@ let snake = [
   { x: 200, y: 200 },
 ];
 
-const board_border = "white";
+// Horizontal velocity
+let dx = 10;
+// Vertical velocity
+let dy = 0;
+
+const board_border = "green";
 const board_background = "black";
 const snake_col = "red";
 const snake_border = "darkred";
 
 // Main function
-main();
+
 
 function main() {
-  clearCanvas();
-  drawSnake();
+  setTimeout(function onTick() {
+    clearCanvas();
+    move_snake();
+    drawSnake();
+    main();
+  }, 100);
 }
 
 // draw a border around the canvas
@@ -35,7 +44,6 @@ function clearCanvas() {
   ctx.strokeRect(0, 0, canvas.width, canvas.height);
 }
 
-
 // Draw the snake on the canvas
 function drawSnake() {
   // Draw each part
@@ -45,7 +53,7 @@ function drawSnake() {
 // Draw one snake part
 function drawSnakeBody(snakeBody) {
   // Set the colour of the snake part
- ctx.fillStyle = snake_col;
+  ctx.fillStyle = snake_col;
   // Set the border colour of the snake part
   ctx.strokestyle = snake_border;
   // Draw a "filled" rectangle to represent the snake part at the coordinates
@@ -55,6 +63,12 @@ function drawSnakeBody(snakeBody) {
   ctx.strokeRect(snakeBody.x, snakeBody.y, 10, 10);
 }
 
+function move_snake() {
+  // Create the new Snake's head
+  const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+  // Add the new head to the beginning of snake body
+  snake.unshift(head);
+  snake.pop();
+}
 
-
-
+main();
