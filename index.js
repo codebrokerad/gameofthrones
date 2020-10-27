@@ -3,6 +3,11 @@ const ctx = canvas.getContext("2d");
 
 
 let snake = [
+  { x: 200, y: 100 },
+  { x: 200, y: 110 },
+  { x: 200, y: 120 },
+  { x: 200, y: 130 },
+  { x: 200, y: 140 },
   { x: 200, y: 150 },
   { x: 200, y: 160 },
   { x: 200, y: 170 },
@@ -10,7 +15,8 @@ let snake = [
   { x: 200, y: 190 },
   { x: 200, y: 200 },
 ];
-
+// True if changing direction
+let changing_direction = false;
 // Horizontal velocity
 let dx = 10;
 // Vertical velocity
@@ -22,10 +28,14 @@ const snake_col = "red";
 const snake_border = "darkred";
 
 // Main function
-
+main();
+document.addEventListener("keydown", change_direction);
 
 function main() {
-  setTimeout(function onTick() {
+  if (has_game_ended()) return;
+
+    changing_direction = false;
+    setTimeout(function onTick() {
     clearCanvas();
     move_snake();
     drawSnake();
@@ -62,6 +72,7 @@ function drawSnake() {
   snake.forEach(drawSnakeBody);
 }
 
+
 // Draw one snake part
 function drawSnakeBody(snakeBody) {
   // Set the colour of the snake part
@@ -76,6 +87,57 @@ function drawSnakeBody(snakeBody) {
   // Draw a border around the snake part
   ctx.strokeRect(snakeBody.x, snakeBody.y, 10, 10);
 }
+function has_game_ended() {
+  for (let i = 1; i < snake.length; i++) {
+    if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true
+  }
+  const hitLeftWall = snake[0].x < 15;
+  const hitRightWall = snake[0].x > canvas.width - 25;
+  const hitToptWall = snake[0].y < 15;
+  const hitBottomWall = snake[0].y > canvas.height - 25;
+  return hitLeftWall || hitRightWall || hitToptWall || hitBottomWall
+}
+
+function change_direction(e) 
+{  
+   const LEFT_KEY = 37;
+   const RIGHT_KEY = 39;
+   const UP_KEY = 38;
+   const DOWN_KEY = 40;
+ 
+   if (changing_direction) return;
+      changing_direction = true;
+   const keyPressed = e.keyCode;
+   const goingUp = dy === -0;
+   const goingDown = dy === 10;
+   const goingRight = dx === 10;  
+   const goingLeft = dx === -10;
+ 
+     if (keyPressed === LEFT_KEY && !goingRight)
+     {    
+          dx = -10;
+          dy = 0;  
+     }
+ 
+     if (keyPressed === UP_KEY && !goingDown)
+     {    
+          dx = 0;
+          dy = -10;
+     }
+ 
+     if (keyPressed === RIGHT_KEY && !goingLeft)
+     {    
+          dx = 10;
+          dy = 0;
+     }
+ 
+     if (keyPressed === DOWN_KEY && !goingUp)
+     {    
+          dx = 0;
+          dy = 10;
+     }
+}
+
 
 function move_snake() {
   // Create the new Snake's head
@@ -85,4 +147,5 @@ function move_snake() {
   snake.pop();
 }
 
-main();
+
+
