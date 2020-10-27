@@ -1,12 +1,14 @@
 const myGameArea = {
   canvas: document.createElement("canvas"),
+  frames: 0,
   start: function () {
-    this.canvas.width = 480;
-    this.canvas.height = 270;
+    this.canvas.width = 1000;
+    this.canvas.height = 700;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
   },
 };
+
 class Component {
   constructor(width, height, color, x, y) {
     this.width = width;
@@ -21,4 +23,7 @@ class Component {
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 }
-const snake = new Component(30, 30, "red", 0, 110);
+
+const snake = new Component(30, 30, "black", 0, 110);
+
+myGameArea.start();

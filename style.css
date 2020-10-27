@@ -1,3 +1,7 @@
-#example {
-    background-color: tomato;
+canvas {
+  background-color: tomato;
+}
+
+snake {
+  color: black;
 }
