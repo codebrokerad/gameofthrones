@@ -164,14 +164,22 @@ function change_direction(e)
 }
 
 
+
 function move_snake() {
   // Create the new Snake's head
-  const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+  const head = {x: snake[0].x + dx, y: snake[0].y + dy};
   // Add the new head to the beginning of snake body
   snake.unshift(head);
-  snake.pop();
+  const has_eaten_food = snake[0].x === food_x && snake[0].y === food_y;
+  if (has_eaten_food) {
+    // Increase score
+    score += 10;
+    // Display score on screen
+    document.getElementById('score').innerHTML = score;
+    // Generate new food location
+    gen_food();
+  } else {
+    // Remove the last part of snake body
+    snake.pop();
+  }
 }
-
-
-
-
