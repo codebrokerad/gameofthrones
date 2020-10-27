@@ -2,15 +2,6 @@ const canvas = document.getElementById("snakecanvas");
 const ctx = canvas.getContext("2d");
 
 
-// var gradient = ctx.createLinearGradient(0, 0, 170, 0);
-// gradient.addColorStop("0", "magenta");
-// gradient.addColorStop("0.5", "orange");
-// gradient.addColorStop("1.0", "green");
-
-// ctx.strokeStyle = gradient;
-// ctx.lineWidth = 15;
-// ctx.strokeRect(20, 20, 150, 100);
-
 let snake = [
   { x: 200, y: 150 },
   { x: 200, y: 160 },
@@ -39,21 +30,31 @@ function main() {
     move_snake();
     drawSnake();
     main();
+
   }, 100);
 }
 
 
 // draw a border around the canvas
 function clearCanvas() {
+  var gradient = ctx.createLinearGradient(0, 0, 170, 0);
+  gradient.addColorStop("0", "magenta");
+  gradient.addColorStop("0.5", "orange");
+  gradient.addColorStop("1.0", "green");
+
+
+  //ctx.strokeStyle = gradient;
+  ctx.lineWidth = 15;
   //  Select the colour to fill the drawing
   ctx.fillStyle = board_background;
   //  Select the colour for the border of the canvas
-  ctx.strokestyle = board_border;
+  ctx.strokeStyle = gradient
   // Draw a "filled" rectangle to cover the entire canvas
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   // Draw a "border" around the entire canvas
   ctx.strokeRect(0, 0, canvas.width, canvas.height);
 }
+
 
 // Draw the snake on the canvas
 function drawSnake() {
@@ -65,8 +66,10 @@ function drawSnake() {
 function drawSnakeBody(snakeBody) {
   // Set the colour of the snake part
   ctx.fillStyle = snake_col;
+
+  ctx.lineWidth = 1;
   // Set the border colour of the snake part
-  ctx.strokestyle = snake_border;
+  ctx.strokeStyle = snake_border;
   // Draw a "filled" rectangle to represent the snake part at the coordinates
   // the part is located
   ctx.fillRect(snakeBody.x, snakeBody.y, 10, 10);
