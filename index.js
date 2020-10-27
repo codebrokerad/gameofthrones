@@ -1,60 +1,60 @@
-
-
- const board_border = 'black';
- const board_background = "white";
- const snake_col = 'lightblue';
- const snake_border = 'darkblue';
+const canvas = document.getElementById("snakecanvas");
+const ctx = canvas.getContext("2d");
 
 let snake = [
-  {x: 200, y: 200},
-  {x: 190, y: 200},
-  {x: 180, y: 200},
-  {x: 170, y: 200},
-  {x: 160, y: 200},
-  {x: 150, y: 200},
-]
+  { x: 200, y: 150 },
+  { x: 200, y: 160 },
+  { x: 200, y: 170 },
+  { x: 200, y: 180 },
+  { x: 200, y: 190 },
+  { x: 200, y: 200 },
+];
 
-// Get the canvas element
-const snakeboard = document.getElementById("snakeboard");
-// Return a two dimensional drawing context
-const snakeboard_ctx = snakeboard.getContext("2d");
-// Start game
+const board_border = "white";
+const board_background = "black";
+const snake_col = "red";
+const snake_border = "darkred";
+
+// Main function
 main();
 
-// main function called repeatedly to keep the game running
 function main() {
-    clearCanvas();
-    drawSnake();
+  clearCanvas();
+  drawSnake();
 }
 
 // draw a border around the canvas
 function clearCanvas() {
   //  Select the colour to fill the drawing
-  snakeboard_ctx.fillStyle = board_background;
+  ctx.fillStyle = board_background;
   //  Select the colour for the border of the canvas
-  snakeboard_ctx.strokestyle = board_border;
+  ctx.strokestyle = board_border;
   // Draw a "filled" rectangle to cover the entire canvas
-  snakeboard_ctx.fillRect(0, 0, snakeboard.width, snakeboard.height);
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
   // Draw a "border" around the entire canvas
-  snakeboard_ctx.strokeRect(0, 0, snakeboard.width, snakeboard.height);
+  ctx.strokeRect(0, 0, canvas.width, canvas.height);
 }
+
 
 // Draw the snake on the canvas
 function drawSnake() {
   // Draw each part
-  snake.forEach(drawSnakePart)
+  snake.forEach(drawSnakeBody);
 }
 
 // Draw one snake part
-function drawSnakePart(snakePart) {
-
+function drawSnakeBody(snakeBody) {
   // Set the colour of the snake part
-  snakeboard_ctx.fillStyle = snake_col;
+ ctx.fillStyle = snake_col;
   // Set the border colour of the snake part
-  snakeboard_ctx.strokestyle = snake_border;
+  ctx.strokestyle = snake_border;
   // Draw a "filled" rectangle to represent the snake part at the coordinates
   // the part is located
-  snakeboard_ctx.fillRect(snakePart.x, snakePart.y, 10, 10);
+  ctx.fillRect(snakeBody.x, snakeBody.y, 10, 10);
   // Draw a border around the snake part
-  snakeboard_ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
+  ctx.strokeRect(snakeBody.x, snakeBody.y, 10, 10);
 }
+
+
+
+
