@@ -1,6 +1,7 @@
-#snakeboard {
+#canvas {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-image: "https://cdn.pixabay.com/photo/2018/10/20/22/22/halloween-3761909_1280.jpg";
 }
