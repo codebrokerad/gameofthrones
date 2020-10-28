@@ -1,6 +1,10 @@
 const canvas = document.getElementById("snakecanvas");
 const ctx = canvas.getContext("2d");
 
+let background = new Image();
+background.src = "/halloween.jpg";
+
+// Make sure the image is loaded first otherwise nothing will draw.
 
 let snake = [
   { x: 200, y: 100 },
@@ -51,9 +55,9 @@ function main() {
 // draw a border around the canvas
 function clearCanvas() {
   var gradient = ctx.createLinearGradient(0, 0, 170, 0);
-  gradient.addColorStop("0", "magenta");
-  gradient.addColorStop("0.5", "orange");
-  gradient.addColorStop("1.0", "green");
+  gradient.addColorStop("0", "blue");
+  gradient.addColorStop("0.5", "blue");
+  gradient.addColorStop("1.0", "blue");
 
 
   //ctx.strokeStyle = gradient;
@@ -66,6 +70,7 @@ function clearCanvas() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   // Draw a "border" around the entire canvas
   ctx.strokeRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(background,0,0);
 }
 
 
@@ -100,10 +105,10 @@ function has_game_ended() {
   for (let i = 1; i < snake.length; i++) {
     if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true
   }
-  const hitLeftWall = snake[0].x < 15;
-  const hitRightWall = snake[0].x > canvas.width - 25;
-  const hitToptWall = snake[0].y < 15;
-  const hitBottomWall = snake[0].y > canvas.height - 25;
+  const hitLeftWall = snake[0].x < 0;
+  const hitRightWall = snake[0].x > canvas.width - 10;
+  const hitToptWall = snake[0].y < 0;
+  const hitBottomWall = snake[0].y > canvas.height - 10;
   return hitLeftWall || hitRightWall || hitToptWall || hitBottomWall
 }
 
