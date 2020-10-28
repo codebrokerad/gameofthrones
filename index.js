@@ -36,8 +36,8 @@ document.addEventListener("keydown", change_direction);
 function main() {
   if (has_game_ended()) return;
 
-    changing_direction = false;
-    setTimeout(function onTick() {
+  changing_direction = false;
+  setTimeout(function onTick() {
     clearCanvas();
     drawFood();
     move_snake();
@@ -108,7 +108,7 @@ function has_game_ended() {
 }
 
 function random_food(min, max) {
-  return Math.round((Math.random() * (max-min) + min) / 10) * 10;
+  return Math.round((Math.random() * (max - min) + min) / 10) * 10;
 }
 
 function gen_food() {
@@ -123,60 +123,55 @@ function gen_food() {
   });
 }
 
-function change_direction(e) 
-{  
-   const LEFT_KEY = 37;
-   const RIGHT_KEY = 39;
-   const UP_KEY = 38;
-   const DOWN_KEY = 40;
- 
-   if (changing_direction) return;
-      changing_direction = true;
-   const keyPressed = e.keyCode;
-   const goingUp = dy === -10;
-   const goingDown = dy === 10;
-   const goingRight = dx === 10;  
-   const goingLeft = dx === -10;
- 
-     if (keyPressed === LEFT_KEY && !goingRight)
-     {    
-          dx = -10;
-          dy = 0;  
-     }
- 
-     if (keyPressed === UP_KEY && !goingDown)
-     {    
-          dx = 0;
-          dy = -10;
-     }
- 
-     if (keyPressed === RIGHT_KEY && !goingLeft)
-     {    
-          dx = 10;
-          dy = 0;
-     }
- 
-     if (keyPressed === DOWN_KEY && !goingUp)
-     {    
-          dx = 0;
-          dy = 10;
-     }
+function change_direction(e) {
+  const LEFT_KEY = 37;
+  const RIGHT_KEY = 39;
+  const UP_KEY = 38;
+  const DOWN_KEY = 40;
+
+  if (changing_direction) return;
+  changing_direction = true;
+  const keyPressed = e.keyCode;
+  const goingUp = dy === -10;
+  const goingDown = dy === 10;
+  const goingRight = dx === 10;
+  const goingLeft = dx === -10;
+
+  if (keyPressed === LEFT_KEY && !goingRight) {
+    dx = -10;
+    dy = 0;
+  }
+
+  if (keyPressed === UP_KEY && !goingDown) {
+    dx = 0;
+    dy = -10;
+  }
+
+  if (keyPressed === RIGHT_KEY && !goingLeft) {
+    dx = 10;
+    dy = 0;
+  }
+
+  if (keyPressed === DOWN_KEY && !goingUp) {
+    dx = 0;
+    dy = 10;
+  }
 }
 
-
+scoreNum = 0;
 
 function move_snake() {
   // Create the new Snake's head
-  const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+  const head = { x: snake[0].x + dx, y: snake[0].y + dy };
   // Add the new head to the beginning of snake body
   snake.unshift(head);
   const has_eaten_food = snake[0].x === food_x && snake[0].y === food_y;
   if (has_eaten_food) {
     // Increase score
-    score += 10;
+    scoreNum += 10;
     // Display score on screen
-    document.getElementById('score').innerHTML = score;
-    // Generate new food location
+    document.getElementById('scoreNum').innerHTML = scoreNum;
+    // Generate new food location 
     gen_food();
   } else {
     // Remove the last part of snake body
