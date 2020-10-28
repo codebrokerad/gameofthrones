@@ -5,3 +5,30 @@
   transform: translate(-50%, -50%);
   background-image: "https://cdn.pixabay.com/photo/2018/10/20/22/22/halloween-3761909_1280.jpg";
 }
+
+body{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: black;
+  margin: 20px;
+}
+#scoreTable{
+  display: flex;
+  flex-direction: column;
+  color: orange;
+  font-size: 40px;
+} 
+#output{
+  color: white;
+  font-size: 40px;
+}
+
+#score {
+  padding-right: 40px;
+}
+
+#pumpkin {
+  padding-right: 40px;
+
+}

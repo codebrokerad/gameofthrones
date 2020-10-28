@@ -119,16 +119,6 @@ function gen_food() {
   });
 }
 
-function generateFood() {
-  if (Food.present === false) {
-      Food.position = [Math.floor((Math.random()*40) + 1), Math.floor((Math.random()*40) + 1)]
-      Food.present = true;
-      console.log("Food at: "+Food.position);
-      $(".row:nth-child(" + Food.position[0] + ") > .pixel:nth-child(" + Food.position[1] + ")").addClass("foodPixel");
-  }
-}
-
-
 function change_direction(e) {
   const LEFT_KEY = 37;
   const RIGHT_KEY = 39;
@@ -142,7 +132,6 @@ function change_direction(e) {
   const goingDown = dy === 10;
   const goingRight = dx === 10;
   const goingLeft = dx === -10;
-
 
   if (keyPressed === LEFT_KEY && !goingRight) {
     dx = -10;
@@ -165,6 +154,8 @@ function change_direction(e) {
   }
 }
 
+scoreNum = 0;
+
 function move_snake() {
   // Create the new Snake's head
   const head = { x: snake[0].x + dx, y: snake[0].y + dy };
@@ -173,10 +164,10 @@ function move_snake() {
   const has_eaten_food = snake[0].x === food_x && snake[0].y === food_y;
   if (has_eaten_food) {
     // Increase score
-    score += 10;
+    scoreNum += 10;
     // Display score on screen
-    document.getElementById("score").innerHTML = score;
-    // Generate new food location
+    document.getElementById('scoreNum').innerHTML = scoreNum;
+    // Generate new food location 
     gen_food();
   } else {
     // Remove the last part of snake body
