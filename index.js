@@ -54,12 +54,13 @@ function main() {
 // draw a border around the canvas
 function clearCanvas() {
   var gradient = ctx.createLinearGradient(0, 0, 170, 0);
-  gradient.addColorStop("0", "red");
-  gradient.addColorStop("0.5", "red");
-  gradient.addColorStop("1.0", "red");
+  gradient.addColorStop("0", "blue");
+  gradient.addColorStop("0.5", "blue");
+  gradient.addColorStop("1.0", "green");
+
 
   //ctx.strokeStyle = gradient;
-  ctx.lineWidth = 15;
+  ctx.lineWidth = 5;
   //  Select the colour to fill the drawing
   ctx.fillStyle = board_background;
   //  Select the colour for the border of the canvas
@@ -78,9 +79,9 @@ function drawSnake() {
 }
 
 function drawFood() {
-  ctx.fillStyle = "lightgreen";
-  ctx.strokestyle = "darkgreen";
-  ctx.fillRect(food_x, food_y, 5, 5);
+  ctx.fillStyle = 'lightgreen';
+  ctx.strokestyle = 'blue';
+  ctx.fillRect(food_x, food_y, 10, 10);
 }
 
 // Draw one snake part
