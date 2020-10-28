@@ -38,9 +38,10 @@ gen_food();
 document.addEventListener("keydown", change_direction);
 
 function main() {
-  if (has_game_ended()){ alert ("You lose")
-  document.location.reload();
-}
+  if (has_game_ended()) {
+    alert("You lose");
+    document.location.reload();
+  }
   changing_direction = false;
   setTimeout(function onTick() {
     clearCanvas();
@@ -51,28 +52,25 @@ function main() {
   }, 100);
 }
 
-
 // draw a border around the canvas
 function clearCanvas() {
   var gradient = ctx.createLinearGradient(0, 0, 170, 0);
   gradient.addColorStop("0", "blue");
   gradient.addColorStop("0.5", "blue");
-  gradient.addColorStop("1.0", "blue");
-
+  gradient.addColorStop("1.0", "green");
 
   //ctx.strokeStyle = gradient;
-  ctx.lineWidth = 15;
+  ctx.lineWidth = 5;
   //  Select the colour to fill the drawing
   ctx.fillStyle = board_background;
   //  Select the colour for the border of the canvas
-  ctx.strokeStyle = gradient
+  ctx.strokeStyle = gradient;
   // Draw a "filled" rectangle to cover the entire canvas
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   // Draw a "border" around the entire canvas
   ctx.strokeRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(background, 0, 0);
 }
-
 
 // Draw the snake on the canvas
 function drawSnake() {
@@ -81,10 +79,9 @@ function drawSnake() {
 }
 
 function drawFood() {
-  ctx.fillStyle = 'lightgreen';
-  ctx.strokestyle = 'darkgreen';
-  ctx.fillRect(food_x, food_y, 5, 5);
-  ctx.strokeRect(food_x, food_y, 1, 1);
+  ctx.fillStyle = "lightgreen";
+  ctx.strokestyle = "blue";
+  ctx.fillRect(food_x, food_y, 10, 10);
 }
 
 
@@ -104,13 +101,13 @@ function drawSnakeBody(snakeBody) {
 }
 function has_game_ended() {
   for (let i = 1; i < snake.length; i++) {
-    if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true
+    if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
   }
   const hitLeftWall = snake[0].x < 0;
   const hitRightWall = snake[0].x > canvas.width - 10;
   const hitToptWall = snake[0].y < 0;
   const hitBottomWall = snake[0].y > canvas.height - 10;
-  return hitLeftWall || hitRightWall || hitToptWall || hitBottomWall
+  return hitLeftWall || hitRightWall || hitToptWall || hitBottomWall;
 }
 
 function random_food(min, max) {
@@ -179,8 +176,8 @@ function move_snake() {
     // Increase score
     scoreNum += 10;
     // Display score on screen
-    document.getElementById('scoreNum').innerHTML = scoreNum;
-    // Generate new food location 
+    document.getElementById("scoreNum").innerHTML = scoreNum;
+    // Generate new food location
     gen_food();
   } else {
     // Remove the last part of snake body
