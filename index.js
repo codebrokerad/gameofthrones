@@ -38,8 +38,9 @@ gen_food();
 document.addEventListener("keydown", change_direction);
 
 function main() {
-  if (has_game_ended()) return;
-
+  if (has_game_ended()){ alert ("You lose")
+  document.location.reload();
+}
   changing_direction = false;
   setTimeout(function onTick() {
     clearCanvas();
@@ -47,7 +48,6 @@ function main() {
     move_snake();
     drawSnake();
     main();
-
   }, 100);
 }
 
@@ -70,7 +70,7 @@ function clearCanvas() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   // Draw a "border" around the entire canvas
   ctx.strokeRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(background,0,0);
+  ctx.drawImage(background, 0, 0);
 }
 
 
@@ -86,6 +86,7 @@ function drawFood() {
   ctx.fillRect(food_x, food_y, 5, 5);
   ctx.strokeRect(food_x, food_y, 1, 1);
 }
+
 
 // Draw one snake part
 function drawSnakeBody(snakeBody) {
@@ -113,8 +114,10 @@ function has_game_ended() {
 }
 
 function random_food(min, max) {
-  return Math.round((Math.random() * (max - min) + min) / 10) * 10;
+  return (Math.round((Math.random() * (max - min) + min) / 10) * 10);
 }
+
+
 
 function gen_food() {
   // Generate a random number the food x-coordinate
@@ -127,6 +130,7 @@ function gen_food() {
     if (has_eaten) gen_food();
   });
 }
+
 
 function change_direction(e) {
   const LEFT_KEY = 37;
