@@ -1,6 +1,11 @@
 const canvas = document.getElementById("snakecanvas");
 const ctx = canvas.getContext("2d");
 
+let background = new Image();
+background.src = "/halloween.jpg";
+
+// Make sure the image is loaded first otherwise nothing will draw.
+
 let snake = [
   { x: 200, y: 100 },
   { x: 200, y: 110 },
@@ -24,8 +29,8 @@ let dy = 0;
 
 const board_border = "green";
 const board_background = "black";
-const snake_col = "red";
-const snake_border = "darkred";
+const snake_col = "green";
+const snake_border = "darkgreen";
 
 // Main function
 main();
@@ -49,9 +54,9 @@ function main() {
 // draw a border around the canvas
 function clearCanvas() {
   var gradient = ctx.createLinearGradient(0, 0, 170, 0);
-  gradient.addColorStop("0", "magenta");
-  gradient.addColorStop("0.5", "orange");
-  gradient.addColorStop("1.0", "green");
+  gradient.addColorStop("0", "red");
+  gradient.addColorStop("0.5", "red");
+  gradient.addColorStop("1.0", "red");
 
   //ctx.strokeStyle = gradient;
   ctx.lineWidth = 15;
@@ -63,6 +68,7 @@ function clearCanvas() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   // Draw a "border" around the entire canvas
   ctx.strokeRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(background,0,0);
 }
 
 // Draw the snake on the canvas
@@ -75,7 +81,6 @@ function drawFood() {
   ctx.fillStyle = "lightgreen";
   ctx.strokestyle = "darkgreen";
   ctx.fillRect(food_x, food_y, 5, 5);
-  ctx.strokeRect(food_x, food_y, 1, 1);
 }
 
 // Draw one snake part
@@ -83,7 +88,7 @@ function drawSnakeBody(snakeBody) {
   // Set the colour of the snake part
   ctx.fillStyle = snake_col;
 
-  ctx.lineWidth = 1;
+  ctx.lineWidth = 7;
   // Set the border colour of the snake part
   ctx.strokeStyle = snake_border;
   // Draw a "filled" rectangle to represent the snake part at the coordinates
@@ -96,11 +101,11 @@ function has_game_ended() {
   for (let i = 1; i < snake.length; i++) {
     if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return false;
   }
-  const hitLeftWall = snake[0].x < 15;
-  const hitRightWall = snake[0].x > canvas.width - 25;
-  const hitToptWall = snake[0].y < 15;
-  const hitBottomWall = snake[0].y > canvas.height - 25;
-  return hitLeftWall || hitRightWall || hitToptWall || hitBottomWall;
+  const hitLeftWall = snake[0].x < 0;
+  const hitRightWall = snake[0].x > canvas.width - 10;
+  const hitToptWall = snake[0].y < 0;
+  const hitBottomWall = snake[0].y > canvas.height - 10;
+  return hitLeftWall || hitRightWall || hitToptWall || hitBottomWall
 }
 
 function random_food(min, max) {

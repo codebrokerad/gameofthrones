@@ -10,25 +10,29 @@ body{
   display: flex;
   justify-content: center;
   align-content: center;
-  background-color: black;
-  margin: 20px;
+  background: url('/halloweenbackground.jpg') no-repeat;
+  background-size: cover;
+  margin: 100px;
+  padding-right: 200px
+  
 }
+
 #scoreTable{
   display: flex;
   flex-direction: column;
   color: orange;
   font-size: 40px;
+  padding-right: 30px;
+  
 } 
 #output{
   color: white;
   font-size: 40px;
 }
 
-#score {
-  padding-right: 40px;
+#scoreNum {
+  display: flex;
+  justify-content: center;
+  margin-top: 0px;
 }
 
-#pumpkin {
-  padding-right: 40px;
-
-}
