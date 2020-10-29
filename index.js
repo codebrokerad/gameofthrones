@@ -59,7 +59,7 @@ function poison() {
     setTimeout(function () {
         createBadFood()
         poison()
-    }, 3000)
+    }, 1500)
 }
 
 function clearCanvas() {
