@@ -3,7 +3,7 @@
   src: url("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Fonts/Lunacy.woff") format("woff"), url("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Fonts/Lunacy.woff2") format("woff2");
 
   font-family: "Creepy";
-  src: url("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Fonts/Creepy.woff?raw=true") format("woff"), url("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Fonts/Creepy.woff2?raw=true") format("woff2")
+  src: url("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Fonts/Creepy.woff?raw=true") format("woff"), url("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Fonts/Creepy.woff2?raw=true") format("woff2");
 
 }
 
@@ -45,14 +45,13 @@ body{
   display: flex;
   justify-content: center;
   margin-top: 0px;
-  font-family: Creepy, serif;
+  
 }
 
 #levelNum {
   display: flex;
   justify-content: center;
   margin-top: 0px;
-  font-family: Creepy, serif;
 }
 
 

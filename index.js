@@ -71,7 +71,6 @@ function drawFood() {
 }
 
 
-
 function drawSnakeBody(snakeBody) {
   ctx.fillStyle = snake_col;
   ctx.lineWidth = 1;
@@ -88,7 +87,12 @@ function gameOver() {
   const bottomWallCollision = snake[0].y > canvas.height - 10;
   const leftWallCollision = snake[0].x < 0;
   const rightWallCollision = snake[0].x > canvas.width - 10;
-  return topWallCollision || bottomWallCollision || leftWallCollision || rightWallCollision 
+  return (
+    topWallCollision ||
+    bottomWallCollision ||
+    leftWallCollision ||
+    rightWallCollision
+  );
 }
 
 function randomFood(min, max) {
@@ -98,15 +102,13 @@ function randomFood(min, max) {
 function createFood() {
   xFood = randomFood(0, canvas.width - 10);
   yFood = randomFood(0, canvas.height - 10);
-  snake.forEach(function didSnakeEat (part) {
+  snake.forEach(function didSnakeEat(part) {
     const ateFood = part.x == xFood && part.y == yFood;
     if (ateFood) createFood();
   });
 }
 
-
 function directionChange(e) {
-  
   //left = 37;
   //right key= 39;
   //up key= 38;
@@ -155,15 +157,3 @@ function moveSnake() {
     snake.pop();
   }
 }
-
-//let levelNum = 1; 
-
-//function level() {
-  //if (scoreNum >= 10) {
-    //levelNum += 1;
-   // document.getElementById("levelNum").innerHTML = levelNum;
-  //}
-  
-//}
-
-//level(scoreNum);
