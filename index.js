@@ -71,11 +71,6 @@ function drawFood() {
   ctx.fillRect(xFood, yFood, 20, 20);
 }
 
-function drawPoisonFood() {
-  ctx.fillStyle = "red";
-  ctx.strokestyle = "blue";
-  ctx.fillRect(300, 100, 20, 20);
-}
 
 function drawSnakeBody(snakeBody) {
   ctx.fillStyle = snake_col;
@@ -109,11 +104,13 @@ function createFood() {
   });
 }
 
-function createFoodTwo() {
-  xFood = randomFood(10, canvas.width - 10);
-  yFood= randomFood(10, canvas.height - 10);
+function drawPoisonFood() {
+  poisonFoodX = randomFood(0, canvas.width - 10);
+  poisonFoodY = randomFood(0, canvas.height - 10);
+  ctx.fillStyle = "red";
+  ctx.strokestyle = "blue";
+  ctx.fillRect(poisonFoodX, poisonFoodY, 50, 50); 
 }
-
 
 function directionChange(e) {
   //left = 37;
