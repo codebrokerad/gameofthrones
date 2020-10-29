@@ -41,12 +41,12 @@ function main() {
   setTimeout(function onTick() {
     clearCanvas();
     drawFood();
-    drawPoisonFood();
     moveSnake();
     drawSnake();
     main();
   }, 100);
 }
+
 
 function clearCanvas() {
   var gradient = ctx.createLinearGradient(0, 0, 170, 0);
@@ -104,12 +104,13 @@ function createFood() {
   });
 }
 
-function drawPoisonFood() {
+function drawPoisonFood() { setInterval(function() {
   poisonFoodX = randomFood(0, canvas.width - 10);
   poisonFoodY = randomFood(0, canvas.height - 10);
   ctx.fillStyle = "red";
   ctx.strokestyle = "blue";
   ctx.fillRect(poisonFoodX, poisonFoodY, 50, 50); 
+}, 3000);
 }
 
 function directionChange(e) {
