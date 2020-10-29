@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Snake Game</title>
+    <link rel="secondhtml" href="index.html">
+</head>
+
+<style>
+
+@font-face {
+  font-family: "Creepy";
+  src: url("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Fonts/Creepy.woff?raw=true") format("woff"), url("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Fonts/Creepy.woff2?raw=true") format("woff2")
+}
+
+    body {
+        background: url(Halloween-Full-Moon-i842488914.jpg) no-repeat center fixed;
+        background-size: cover;
+    }
+
+    #start-button {
+        text-align: center;
+        padding: 20px;
+        border: coral;
+        border-style: outset;
+        border-radius: 50%;
+        background-color: #84d5d8;
+        cursor: pointer;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    #start-button a {
+        font-size: 45px;
+        text-decoration: none;
+        color: orange;
+        /* font: italic small-caps bold 40px cursive; */
+        font-family: Creepy, serif;
+  
+    }
+</style>
+
+
+<body>
+
+    <!-- Added for the Welcome Page -->
+    <div id="game-intro">
+        <button id="start-button">
+            <a href="index.html">Click to Start</a>
+        </button>
+    </div>
+    <script src="index.js"></script>
+
+</body>
+
+</html>

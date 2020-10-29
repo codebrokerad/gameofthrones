@@ -71,6 +71,7 @@ function drawFood() {
 }
 
 
+
 function drawSnakeBody(snakeBody) {
   ctx.fillStyle = snake_col;
   ctx.lineWidth = 1;
