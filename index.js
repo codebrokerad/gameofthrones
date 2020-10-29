@@ -33,20 +33,26 @@ createFood();
 document.addEventListener("keydown", directionChange);
 
 function main() {
-  if (isGameOver()) {
-    document.getElementById('game-over-text').classList.add('visible');
-    // alert("Oh no! You lose");
-    document.location.reload();
-  }
-  directionChanging = false;
-  setTimeout(function onTick() {
-    clearCanvas();
-    drawFood();
-    drawPoisonFood();
-    moveSnake();
-    drawSnake();
-    main();
-  }, 100);
+    if (gameOver()) {
+        alert('Oh no! You lose')
+        document.location.reload()
+    }
+    directionChanging = false
+    setTimeout(function onTick() {
+        clearCanvas()
+        drawFood()
+        drawBadFood()
+        moveSnake()
+        drawSnake()
+        main()
+    }, 100)
+}
+
+function poison() {
+    setTimeout(function () {
+        createBadFood()
+        poison()
+    }, 1500)
 }
 
 function clearCanvas() {
@@ -154,20 +160,25 @@ function directionChange(e) {
 let scoreNum = 0;
 
 function moveSnake() {
-  const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-  snake.unshift(head);
-  const snakeAteFood = snake[0].x === xFood && snake[0].y === yFood;
-  if (snakeAteFood) {
-    scoreNum += 10;
-    document.getElementById("scoreNum").innerHTML = scoreNum;
-    createFood();
-  if (scoreNum === 20 ) {
-      alert("You win yehuuuuu");
-      document.location.reload();
+    const head = { x: snake[0].x + dx, y: snake[0].y + dy }
+    snake.unshift(head)
+    const snakeAteFood = snake[0].x === xFood && snake[0].y === yFood
+    const snakeAteBadFood = snake[0].x === xBadFood && snake[0].y === yBadFood
+    if (snakeAteFood) {
+        scoreNum += 10
+        document.getElementById('scoreNum').innerHTML = scoreNum
+        createFood()
+        createBadFood()
+        if (scoreNum === 100) {
+            alert('You win!!!')
+            document.location.reload()
+        }
+    } else if (snakeAteBadFood) {
+        scoreNum += 20
+        document.getElementById('scoreNum').innerHTML = scoreNum
+    } else {
+        snake.pop()
     }
-  } else {
-    snake.pop();
-  }
 }
 
 
