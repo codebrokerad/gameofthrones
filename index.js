@@ -29,8 +29,8 @@ const snake_border = 'darkred'
 main()
 backgroundSound.play()
 createFood()
-createBadFood()
-poison()
+createSuperFood()
+superFood()
 
 document.addEventListener('keydown', directionChange)
 
@@ -48,18 +48,18 @@ function main() {
     setTimeout(function onTick() {
         clearCanvas()
         drawFood()
-        drawBadFood()
+        drawSuperFood()
         moveSnake()
         drawSnake()
         main()
     }, 100)
 }
 
-function poison() {
+function superFood() {
     setTimeout(function () {
-        createBadFood()
-        poison()
-    }, 1500)
+        createSuperFood()
+        superFood()
+    }, 1000)
 }
 
 function clearCanvas() {
@@ -85,10 +85,10 @@ function drawFood() {
     ctx.fillRect(xFood, yFood, 20, 20)
 }
 
-function drawBadFood() {
+function drawSuperFood() {
     ctx.fillStyle = 'red'
     ctx.strokestyle = 'blue'
-    ctx.fillRect(xBadFood, yBadFood, 20, 20)
+    ctx.fillRect(xSuperFood, ySuperFood, 20, 20)
 }
 
 function drawSnakeBody(snakeBody) {
@@ -123,7 +123,7 @@ function createFood() {
     })
 }
 
-function createBadFood() {
+function createSuperFood() {
     xBadFood = randomFood(0, canvas.width - 10)
     yBadFood = randomFood(0, canvas.height - 10)
 }
@@ -169,17 +169,17 @@ function moveSnake() {
     const head = { x: snake[0].x + dx, y: snake[0].y + dy }
     snake.unshift(head)
     const snakeAteFood = snake[0].x === xFood && snake[0].y === yFood
-    const snakeAteBadFood = snake[0].x === xBadFood && snake[0].y === yBadFood
+    const snakeAteSuperFood = snake[0].x === xSuperFood && snake[0].y === ySuperFood
     if (snakeAteFood) {
         scoreNum += 10
         document.getElementById('scoreNum').innerHTML = scoreNum
         createFood()
-        createBadFood()
+        createSuperFood()
         if (scoreNum === 100) {
             alert('You win!!!')
             document.location.reload()
         }
-    } else if (snakeAteBadFood) {
+    } else if (snakeAteSuperFood) {
         scoreNum += 20
         document.getElementById('scoreNum').innerHTML = scoreNum
     } else {
