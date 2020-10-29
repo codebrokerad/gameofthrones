@@ -1,3 +1,12 @@
+@font-face {
+  font-family: "Lunacy";
+  src: url("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Fonts/Lunacy.woff") format("woff"), url("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Fonts/Lunacy.woff2") format("woff2");
+
+  font-family: "Creepy";
+  src: url("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Fonts/Creepy.woff?raw=true") format("woff"), url("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Fonts/Creepy.woff2?raw=true") format("woff2")
+
+}
+
 #canvas {
   position: absolute;
   top: 50%;
@@ -10,14 +19,16 @@ body{
   display: flex;
   justify-content: center;
   align-content: center;
+  position: fixed;
   background: url('/halloweenbackground.jpg') no-repeat;
   background-size: cover;
-  margin: 100px;
-  padding-right: 200px
+  margin-left: 300px;
+  margin-top: 65px;
+  padding-right: 200px;
   
 }
 
-#scoreTable{
+#overalTable{
   display: flex;
   flex-direction: column;
   color: orange;
@@ -34,5 +45,18 @@ body{
   display: flex;
   justify-content: center;
   margin-top: 0px;
+  
 }
 
+#levelNum {
+  display: flex;
+  justify-content: center;
+  margin-top: 0px;
+  
+}
+
+
+.element{
+  height: 50vh; /* Would mean 50% of Viewport height */
+  width:  75vw; /* Would mean 75% of Viewport width*/
+}
