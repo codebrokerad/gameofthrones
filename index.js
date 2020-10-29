@@ -1,3 +1,41 @@
+//Sound
+/*
+class AudioController {
+  constructor() {
+      this.bgMusic = new Audio('https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/creepy.mp3');
+      this.flipSound = new Audio('https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/flip.wav');
+      this.matchSound = new Audio('https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/match.wav');
+      this.victorySound = new Audio('https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/victory.wav');
+      this.gameOverSound = new Audio('Assets/Audio/gameOver.wav');
+      this.bgMusic.volume = 0.5;
+      this.bgMusic.loop = true;
+  }
+  startMusic() {
+      this.bgMusic.play();
+  }
+  stopMusic() {
+      this.bgMusic.pause();
+      this.bgMusic.currentTime = 0;
+  }
+  flip() {
+      this.flipSound.play();
+  }
+  match() {
+      this.matchSound.play();
+  }
+  victory() {
+      this.stopMusic();
+      this.victorySound.play();
+  }
+  gameOver() {
+      this.stopMusic();
+      this.gameOverSound.play();
+  }
+}
+
+*/
+
+
 const canvas = document.getElementById("snakecanvas");
 const ctx = canvas.getContext("2d");
 let backgroundSound = new Audio("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/creepy.mp3");
@@ -33,26 +71,19 @@ createFood();
 document.addEventListener("keydown", directionChange);
 
 function main() {
-    if (gameOver()) {
-        alert('Oh no! You lose')
-        document.location.reload()
-    }
-    directionChanging = false
-    setTimeout(function onTick() {
-        clearCanvas()
-        drawFood()
-        drawBadFood()
-        moveSnake()
-        drawSnake()
-        main()
-    }, 100)
-}
-
-function poison() {
-    setTimeout(function () {
-        createBadFood()
-        poison()
-    }, 1500)
+  if (gameOver()) {
+    alert("Oh no! You lose");
+    document.location.reload();
+  }
+  directionChanging = false;
+  setTimeout(function onTick() {
+    clearCanvas();
+    drawFood();
+    drawPoisonFood();
+    moveSnake();
+    drawSnake();
+    main();
+  }, 100);
 }
 
 function clearCanvas() {
@@ -91,7 +122,7 @@ function drawSnakeBody(snakeBody) {
   ctx.fillRect(snakeBody.x, snakeBody.y, 20, 20);
   ctx.strokeRect(snakeBody.x, snakeBody.y, 20, 20);
 }
-function isGameOver() {
+function gameOver() {
   for (let i = 1; i < snake.length; i++) {
     if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
   }
@@ -160,25 +191,20 @@ function directionChange(e) {
 let scoreNum = 0;
 
 function moveSnake() {
-    const head = { x: snake[0].x + dx, y: snake[0].y + dy }
-    snake.unshift(head)
-    const snakeAteFood = snake[0].x === xFood && snake[0].y === yFood
-    const snakeAteBadFood = snake[0].x === xBadFood && snake[0].y === yBadFood
-    if (snakeAteFood) {
-        scoreNum += 10
-        document.getElementById('scoreNum').innerHTML = scoreNum
-        createFood()
-        createBadFood()
-        if (scoreNum === 100) {
-            alert('You win!!!')
-            document.location.reload()
-        }
-    } else if (snakeAteBadFood) {
-        scoreNum += 20
-        document.getElementById('scoreNum').innerHTML = scoreNum
-    } else {
-        snake.pop()
+  const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+  snake.unshift(head);
+  const snakeAteFood = snake[0].x === xFood && snake[0].y === yFood;
+  if (snakeAteFood) {
+    scoreNum += 10;
+    document.getElementById("scoreNum").innerHTML = scoreNum;
+    createFood();
+  if (scoreNum === 20 ) {
+      alert("You win yehuuuuu");
+      document.location.reload();
     }
+  } else {
+    snake.pop();
+  }
 }
 
 
