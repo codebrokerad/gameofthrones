@@ -1,168 +1,188 @@
-const canvas = document.getElementById("snakecanvas");
-const ctx = canvas.getContext("2d");
-let backgroundSound = new Audio("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/creepy.mp3");
-let background = new Image();
-background.src = "/halloween.jpg";
+const canvas = document.getElementById('snakecanvas')
+const ctx = canvas.getContext('2d')
+let backgroundSound = new Audio('https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/creepy.mp3')
+let background = new Image()
+background.src = '/halloween.jpg'
 
 let snake = [
-  { x: 380, y: 400 },
-  { x: 360, y: 400 },
-  { x: 340, y: 400 },
-  { x: 320, y: 400 },
-  { x: 300, y: 400 },
-  { x: 280, y: 400 },
-  { x: 260, y: 400 },
-  { x: 240, y: 400 },
-  { x: 220, y: 400 },
-  { x: 200, y: 400 },
-];
+    { x: 380, y: 400 },
+    { x: 360, y: 400 },
+    { x: 340, y: 400 },
+    { x: 320, y: 400 },
+    { x: 300, y: 400 },
+    { x: 280, y: 400 },
+    { x: 260, y: 400 },
+    { x: 240, y: 400 },
+    { x: 220, y: 400 },
+    { x: 200, y: 400 },
+]
 
-let directionChanging = false;
-let dx = 20;
-let dy = 0;
+let directionChanging = false
+let dx = 20
+let dy = 0
 
-const board_border = "green";
-const board_background = "black";
-const snake_col = "limegreen";
-const snake_border = "darkred";
+const board_border = 'green'
+const board_background = 'black'
+const snake_col = 'limegreen'
+const snake_border = 'darkred'
 
-main();
-backgroundSound.play();
-createFood();
+main()
+backgroundSound.play()
+createFood()
+createBadFood()
+poison()
 
-document.addEventListener("keydown", directionChange);
+document.addEventListener('keydown', directionChange)
+
+function gameOver() {
+    alert('Oh no! You lose')
+    document.location.reload()
+}
 
 function main() {
-  if (gameOver()) {
-    alert("Oh no! You lose");
-    document.location.reload();
-  }
-  directionChanging = false;
-  setTimeout(function onTick() {
-    clearCanvas();
-    drawFood();
-    moveSnake();
-    drawSnake();
-    main();
-  }, 100);
+    if (gameOver()) {
+        alert('Oh no! You lose')
+        document.location.reload()
+    }
+    directionChanging = false
+    setTimeout(function onTick() {
+        clearCanvas()
+        drawFood()
+        drawBadFood()
+        moveSnake()
+        drawSnake()
+        main()
+    }, 100)
 }
 
+function poison() {
+    setTimeout(function () {
+        createBadFood()
+        poison()
+    }, 1000)
+}
 
 function clearCanvas() {
-  var gradient = ctx.createLinearGradient(0, 0, 170, 0);
-  gradient.addColorStop("0", "blue");
-  gradient.addColorStop("0.5", "blue");
-  gradient.addColorStop("1.0", "green");
+    var gradient = ctx.createLinearGradient(0, 0, 170, 0)
+    gradient.addColorStop('0', 'blue')
+    gradient.addColorStop('0.5', 'blue')
+    gradient.addColorStop('1.0', 'green')
 
-  ctx.lineWidth = 5;
-  ctx.fillStyle = board_background;
-  ctx.strokeStyle = gradient;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(background, 0, 0);
+    ctx.lineWidth = 5
+    ctx.fillStyle = board_background
+    ctx.strokeStyle = gradient
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    ctx.strokeRect(0, 0, canvas.width, canvas.height)
+    ctx.drawImage(background, 0, 0)
 }
 function drawSnake() {
-  snake.forEach(drawSnakeBody);
+    snake.forEach(drawSnakeBody)
 }
 
 function drawFood() {
-  ctx.fillStyle = "lightgreen";
-  ctx.strokestyle = "blue";
-  ctx.fillRect(xFood, yFood, 20, 20);
+    ctx.fillStyle = 'lightgreen'
+    ctx.strokestyle = 'blue'
+    ctx.fillRect(xFood, yFood, 20, 20)
 }
 
+function drawBadFood() {
+    ctx.fillStyle = 'red'
+    ctx.strokestyle = 'blue'
+    ctx.fillRect(xBadFood, yBadFood, 20, 20)
+}
 
 function drawSnakeBody(snakeBody) {
-  ctx.fillStyle = snake_col;
-  ctx.lineWidth = 1;
-  ctx.strokeStyle = snake_border;
-  ctx.fillRect(snakeBody.x, snakeBody.y, 20, 20);
-  ctx.strokeRect(snakeBody.x, snakeBody.y, 20, 20);
+    ctx.fillStyle = snake_col
+    ctx.lineWidth = 1
+    ctx.strokeStyle = snake_border
+    ctx.fillRect(snakeBody.x, snakeBody.y, 20, 20)
+    ctx.strokeRect(snakeBody.x, snakeBody.y, 20, 20)
 }
 function gameOver() {
-  for (let i = 1; i < snake.length; i++) {
-    if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
-  }
+    for (let i = 1; i < snake.length; i++) {
+        if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true
+    }
 
-  const topWallCollision = snake[0].y < 0;
-  const bottomWallCollision = snake[0].y > canvas.height - 20;
-  const leftWallCollision = snake[0].x < 0;
-  const rightWallCollision = snake[0].x > canvas.width - 20;
-  return topWallCollision || bottomWallCollision || leftWallCollision || rightWallCollision 
+    const topWallCollision = snake[0].y < 0
+    const bottomWallCollision = snake[0].y > canvas.height - 20
+    const leftWallCollision = snake[0].x < 0
+    const rightWallCollision = snake[0].x > canvas.width - 20
+    return topWallCollision || bottomWallCollision || leftWallCollision || rightWallCollision
 }
 
 function randomFood(min, max) {
-  return Math.round((Math.random() * (max - min) + min) / 20) * 20;
+    return Math.round((Math.random() * (max - min) + min) / 20) * 20
 }
 
 function createFood() {
-  xFood = randomFood(0, canvas.width - 10);
-  yFood = randomFood(0, canvas.height - 10);
-  snake.forEach(function didSnakeEat(part) {
-    const ateFood = part.x == xFood && part.y == yFood;
-    if (ateFood) createFood();
-  });
+    xFood = randomFood(0, canvas.width - 10)
+    yFood = randomFood(0, canvas.height - 10)
+    snake.forEach(function didSnakeEat(part) {
+        const ateFood = part.x == xFood && part.y == yFood
+        if (ateFood) createFood()
+    })
 }
 
-function drawPoisonFood() { setInterval(function() {
-  poisonFoodX = randomFood(0, canvas.width - 10);
-  poisonFoodY = randomFood(0, canvas.height - 10);
-  ctx.fillStyle = "red";
-  ctx.strokestyle = "blue";
-  ctx.fillRect(poisonFoodX, poisonFoodY, 50, 50); 
-}, 3000);
+function createBadFood() {
+    xBadFood = randomFood(0, canvas.width - 10)
+    yBadFood = randomFood(0, canvas.height - 10)
 }
 
 function directionChange(e) {
-  //left = 37;
-  //right key= 39;
-  //up key= 38;
-  //down key = 40;
+    //left = 37;
+    //right key= 39;
+    //up key= 38;
+    //down key = 40;
 
-  if (directionChanging) return;
-  directionChanging = true;
-  const key = e.keyCode;
-  const goingUp = dy === -10 * 2;
-  const goingDown = dy === 10 * 2;
-  const goingRight = dx === 10 * 2;
-  const goingLeft = dx === -10 * 2;
+    if (directionChanging) return
+    directionChanging = true
+    const key = e.keyCode
+    const goingUp = dy === -10 * 2
+    const goingDown = dy === 10 * 2
+    const goingRight = dx === 10 * 2
+    const goingLeft = dx === -10 * 2
 
-  if (key === 37 && !goingRight) {
-    dx = -10 * 2;
-    dy = 0;
-  }
+    if (key === 37 && !goingRight) {
+        dx = -10 * 2
+        dy = 0
+    }
 
-  if (key === 38 && !goingDown) {
-    dx = 0;
-    dy = -10 * 2;
-  }
+    if (key === 38 && !goingDown) {
+        dx = 0
+        dy = -10 * 2
+    }
 
-  if (key === 39 && !goingLeft) {
-    dx = 10 * 2;
-    dy = 0;
-  }
+    if (key === 39 && !goingLeft) {
+        dx = 10 * 2
+        dy = 0
+    }
 
-  if (key === 40 && !goingUp) {
-    dx = 0;
-    dy = 10 * 2;
-  }
+    if (key === 40 && !goingUp) {
+        dx = 0
+        dy = 10 * 2
+    }
 }
 
-let scoreNum = 0;
+let scoreNum = 0
 
 function moveSnake() {
-  const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-  snake.unshift(head);
-  const snakeAteFood = snake[0].x === xFood && snake[0].y === yFood;
-  if (snakeAteFood) {
-    scoreNum += 10;
-    document.getElementById("scoreNum").innerHTML = scoreNum;
-    createFood();
-  if (scoreNum === 20 ) {
-      alert("You win yehuuuuu");
-      document.location.reload();
+    const head = { x: snake[0].x + dx, y: snake[0].y + dy }
+    snake.unshift(head)
+    const snakeAteFood = snake[0].x === xFood && snake[0].y === yFood
+    const snakeAteBadFood = snake[0].x === xBadFood && snake[0].y === yBadFood
+    if (snakeAteFood) {
+        scoreNum += 10
+        document.getElementById('scoreNum').innerHTML = scoreNum
+        createFood()
+        createBadFood()
+        if (scoreNum === 100) {
+            alert('You win!!!')
+            document.location.reload()
+        }
+    } else if (snakeAteBadFood) {
+        alert('Oh no! You lose')
+        document.location.reload()
+    } else {
+        snake.pop()
     }
-  } else {
-    snake.pop();
-  }
 }
