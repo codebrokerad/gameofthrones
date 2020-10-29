@@ -60,3 +60,11 @@ body{
   height: 50vh; /* Would mean 50% of Viewport height */
   width:  75vw; /* Would mean 75% of Viewport width*/
 }
+
+#score{
+  font-family: Creepy, serif;
+}
+
+#level{
+  font-family: Creepy, serif;
+}
