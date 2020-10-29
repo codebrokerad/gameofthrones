@@ -17,7 +17,7 @@ body{
   
 }
 
-#scoreTable{
+#overalTable{
   display: flex;
   flex-direction: column;
   color: orange;
@@ -36,3 +36,14 @@ body{
   margin-top: 0px;
 }
 
+#levelNum {
+  display: flex;
+  justify-content: center;
+  margin-top: 0px;
+}
+
+
+.element{
+  height: 50vh; /* Would mean 50% of Viewport height */
+  width:  75vw; /* Would mean 75% of Viewport width*/
+}
