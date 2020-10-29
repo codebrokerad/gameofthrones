@@ -59,7 +59,7 @@ function poison() {
     setTimeout(function () {
         createBadFood()
         poison()
-    }, 1000)
+    }, 3000)
 }
 
 function clearCanvas() {
@@ -180,8 +180,8 @@ function moveSnake() {
             document.location.reload()
         }
     } else if (snakeAteBadFood) {
-        alert('Oh no! You lose')
-        document.location.reload()
+        scoreNum += 20
+        document.getElementById('scoreNum').innerHTML = scoreNum
     } else {
         snake.pop()
     }
