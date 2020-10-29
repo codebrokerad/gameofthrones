@@ -58,7 +58,7 @@ function main() {
 function poison() {
     setTimeout(function () {
         createBadFood()
-        theDevil()
+        poison()
     }, 1000)
 }
 
