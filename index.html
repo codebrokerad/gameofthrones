@@ -3,26 +3,38 @@
 
 <head>
   <title>Snake Game</title>
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
+  <div></div>
  
 
   <div id="overalTable">
     <div id="scoreTable">
-      <h3 id="score"><img src=pumpkin.png alt="pumpkin image" width="60" height="60"> Score </h3>
+      <h3 id="score"><img src="pumpkin.png" alt="pumpkin image" width="60" height="60"> Score </h3>
       <p id="scoreNum">0</p>
     </div>
     <div id="levelTable">
-      <h3 id="level"><img src=zombie2.jpeg alt="zombie image" width="60" height="60"> Level </h3>
+      <h3 id="level"><img src="zombie2.jpeg" alt="zombie image" width="60" height="60"> Level </h3>
       <p id="levelNum">1</p>
     </div>
-  </div>
+  </div> 
   <canvas id="snakecanvas" width="800" height="800" style="border:1px solid #D3D3D3;"></canvas>
-  <script src="index.js"></script>
+  <script src="./index.js"></script>
 
+
+  <!-- popup -->
+  <div class="modal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h1>Game Over</h1>
+        <h3>Click to Restart</h3>
+    </div>
+
+  </div>
 </body>
 
 </html>
