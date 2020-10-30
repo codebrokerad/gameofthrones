@@ -3,7 +3,7 @@ class AudioController {
   constructor() {
     this.bgMusic = new Audio('https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/creepy.mp3');
     this.victorySound = new Audio("./Ta Da-SoundBible.com-1884170640.mp3");
-    this.gameOverSound = new Audio("./Crash-sound-effect.mp3");// problem repead again
+    this.gameOverSound = new Audio("./Crash-sound-effect.mp3");
     this.bgMusic.volume = 0.5;
     this.bgMusic.loop = true;
   }
@@ -56,14 +56,10 @@ const snake_border = "darkred";
 main();
 backgroundSound.startMusic();
 createFood();
+createSuperFood();
+superFood();
 
 document.addEventListener("keydown", directionChange);
-
-// function gameOverGame() {
-//   this.audioController.gameOver();
-//   document.getElementById('game-over-text').classList.add('visible');
-// }
-
 
 function main() {
   if (isGameOver()) {
@@ -71,20 +67,23 @@ function main() {
     if(confirm("YOU LOST! PRESS OK TO RESTART.")){
       window.location ='/'
     }
-    /* closeButton.addEventListener("click", toggleModal);
-    window.addEventListener("click", windowOnClick); */
-    // alert("Oh no! You lose");
-    // document.location.reload();
   }
   directionChanging = false;
   setTimeout(function onTick() {
     clearCanvas();
     drawFood();
-    drawPoisonFood();
+    drawSuperFood();
     moveSnake();
     drawSnake();
     main();
   }, 100);
+}
+
+function superFood() {
+  setTimeout(function () {
+    createSuperFood();
+    superFood();
+  }, 2000);
 }
 
 function clearCanvas() {
@@ -110,10 +109,10 @@ function drawFood() {
   ctx.fillRect(xFood, yFood, 20, 20);
 }
 
-function drawPoisonFood() {
+function drawSuperFood() {
   ctx.fillStyle = "red";
   ctx.strokestyle = "blue";
-  ctx.fillRect(300, 100, 20, 20);
+  ctx.fillRect(xSuperFood, ySuperFood, 20, 20);
 }
 
 function drawSnakeBody(snakeBody) {
@@ -123,6 +122,7 @@ function drawSnakeBody(snakeBody) {
   ctx.fillRect(snakeBody.x, snakeBody.y, 20, 20);
   ctx.strokeRect(snakeBody.x, snakeBody.y, 20, 20);
 }
+
 function isGameOver() {
   for (let i = 1; i < snake.length; i++) {
     if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
@@ -132,7 +132,7 @@ function isGameOver() {
   const bottomWallCollision = snake[0].y > canvas.height - 20;
   const leftWallCollision = snake[0].x < 0;
   const rightWallCollision = snake[0].x > canvas.width - 20;
-  return topWallCollision || bottomWallCollision || leftWallCollision || rightWallCollision
+  return (topWallCollision || bottomWallCollision || leftWallCollision || rightWallCollision)
 }
 
 function randomFood(min, max) {
@@ -148,18 +148,13 @@ function createFood() {
   });
 }
 
-function createFoodTwo() {
-  xFood = randomFood(10, canvas.width - 10);
-  yFood = randomFood(10, canvas.height - 10);
+function createSuperFood() {
+  xSuperFood = randomFood(0, canvas.width - 10);
+  ySuperFood = randomFood(0, canvas.height - 10);
 }
 
 
 function directionChange(e) {
-  //left = 37;
-  //right key= 39;
-  //up key= 38;
-  //down key = 40;
-
   if (directionChanging) return;
   directionChanging = true;
   const key = e.keyCode;
@@ -201,25 +196,26 @@ function moveSnake() {
   const head = { x: snake[0].x + dx, y: snake[0].y + dy };
   snake.unshift(head);
   const snakeAteFood = snake[0].x === xFood && snake[0].y === yFood;
+
+  const snakeAteSuperFood = snake[0].x === xSuperFood && snake[0].y === ySuperFood;
   if (snakeAteFood) {
     scoreNum += 10;
     newLevelNum= scoreNum/50;
-    console.log(newLevelNum);
     document.getElementById("scoreNum").innerHTML = scoreNum;
     createFood();
+    createSuperFood();
     if(newLevelNum>levelNum){
       levelNum++
       document.getElementById("levelNum").innerHTML = levelNum;
+      scoreNum += 10;
+      newLevelNum= scoreNum/50;
       alert("New Level");
       backgroundSound.victory();
-    }
-    // (scoreNum %50 ===0) {
-    //   levelNum++;
-    //   document.getElementById("levelNum").innerHTML = levelNum;
-    //   alert("You pass level2");
-    //   backgroundSound.victory();
-    // }
-  } else {
+    } 
+  } else if (snakeAteSuperFood) {
+    scoreNum += 20;
+    document.getElementById("scoreNum").innerHTML = scoreNum;
+  }  else {
     snake.pop();
   }
 }
