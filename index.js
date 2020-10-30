@@ -189,7 +189,13 @@ function directionChange(e) {
   }
 }
 
-let scoreNum = 0;
+let scoreNum = 0.0;
+let levelNum= 1.0;
+let newLevelNum = 0.0;
+
+arrayNames.forEach(function (name) {
+  console.log(name);
+})
 
 function moveSnake() {
   const head = { x: snake[0].x + dx, y: snake[0].y + dy };
@@ -197,12 +203,22 @@ function moveSnake() {
   const snakeAteFood = snake[0].x === xFood && snake[0].y === yFood;
   if (snakeAteFood) {
     scoreNum += 10;
+    newLevelNum= scoreNum/50;
+    console.log(newLevelNum);
     document.getElementById("scoreNum").innerHTML = scoreNum;
     createFood();
-    if (scoreNum === 100) {
-      alert("You pass level2");
+    if(newLevelNum>levelNum){
+      levelNum++
+      document.getElementById("levelNum").innerHTML = levelNum;
+      alert("New Level");
       backgroundSound.victory();
     }
+    // (scoreNum %50 ===0) {
+    //   levelNum++;
+    //   document.getElementById("levelNum").innerHTML = levelNum;
+    //   alert("You pass level2");
+    //   backgroundSound.victory();
+    // }
   } else {
     snake.pop();
   }
