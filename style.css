@@ -20,7 +20,7 @@ body{
   justify-content: center;
   align-content: center;
   position: fixed;
-  background: url('/halloweenbackground.jpg') 0 0 no-repeat ;
+  background: url('./halloweenbackground.jpg') 0 0 no-repeat ;
   background-size: auto;
   margin-left: 125px;
   margin-top: 75px;

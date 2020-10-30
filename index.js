@@ -29,7 +29,7 @@ const canvas = document.getElementById("snakecanvas");
 const ctx = canvas.getContext("2d");
 let backgroundSound = new AudioController();
 let background = new Image();
-background.src = "/halloween.jpg";
+background.src = "./halloween.jpg";
 
 let snake = [
   { x: 380, y: 400 },
@@ -187,10 +187,6 @@ function directionChange(e) {
 let scoreNum = 0.0;
 let levelNum= 1.0;
 let newLevelNum = 0.0;
-
-arrayNames.forEach(function (name) {
-  console.log(name);
-})
 
 function moveSnake() {
   const head = { x: snake[0].x + dx, y: snake[0].y + dy };
