@@ -208,6 +208,10 @@ function moveSnake() {
       alert("New Level");
       backgroundSound.victory();
     } 
+    if (scoreNum >= 160) {
+      alert("150 points is enough to win!!! Click OK if you want to play again");
+      location = "https://codebrokerad.github.io/gameofthrones/";
+     }
   } else if (snakeAteSuperFood) {
     scoreNum += 20;
     document.getElementById("scoreNum").innerHTML = scoreNum;
