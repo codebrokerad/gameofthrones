@@ -68,9 +68,11 @@ document.addEventListener("keydown", directionChange);
 function main() {
   if (isGameOver()) {
     backgroundSound.gameOver();
-    closeButton.addEventListener("click", toggleModal);
-    window.addEventListener("click", windowOnClick);
-    //document.getElementById('gameovertext').classList.add('visible');
+    if(confirm("YOU LOST! PRESS OK TO RESTART.")){
+      window.location ='/'
+    }
+    /* closeButton.addEventListener("click", toggleModal);
+    window.addEventListener("click", windowOnClick); */
     // alert("Oh no! You lose");
     // document.location.reload();
   }
@@ -198,7 +200,7 @@ function moveSnake() {
     document.getElementById("scoreNum").innerHTML = scoreNum;
     createFood();
     if (scoreNum === 100) {
-      alert("You win yehuuuuu");
+      alert("You pass level2");
       backgroundSound.victory();
     }
   } else {
