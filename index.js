@@ -65,7 +65,7 @@ function main() {
   if (isGameOver()) {
     backgroundSound.gameOver();
     if(confirm("YOU LOST! PRESS OK TO RESTART.")){
-      window.location ='/'
+      location = "https://codebrokerad.github.io/gameofthrones/";
     }
   }
   directionChanging = false;
