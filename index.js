@@ -1,44 +1,33 @@
-//Sound
-/*
+//sound
 class AudioController {
   constructor() {
-      this.bgMusic = new Audio('https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/creepy.mp3');
-      this.flipSound = new Audio('https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/flip.wav');
-      this.matchSound = new Audio('https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/match.wav');
-      this.victorySound = new Audio('https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/victory.wav');
-      this.gameOverSound = new Audio('Assets/Audio/gameOver.wav');
-      this.bgMusic.volume = 0.5;
-      this.bgMusic.loop = true;
+    this.bgMusic = new Audio('https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/creepy.mp3');
+    this.victorySound = new Audio("./Ta Da-SoundBible.com-1884170640.mp3");
+    this.gameOverSound = new Audio("./Crash-sound-effect.mp3");// problem repead again
+    this.bgMusic.volume = 0.5;
+    this.bgMusic.loop = true;
   }
   startMusic() {
-      this.bgMusic.play();
+    this.bgMusic.play();
   }
   stopMusic() {
-      this.bgMusic.pause();
-      this.bgMusic.currentTime = 0;
-  }
-  flip() {
-      this.flipSound.play();
-  }
-  match() {
-      this.matchSound.play();
+    this.bgMusic.pause();
+    this.bgMusic.currentTime = 0;
   }
   victory() {
-      this.stopMusic();
-      this.victorySound.play();
+    this.stopMusic();
+    this.victorySound.play();
   }
   gameOver() {
-      this.stopMusic();
-      this.gameOverSound.play();
+    this.stopMusic();
+    this.gameOverSound.play();
   }
 }
-
-*/
 
 
 const canvas = document.getElementById("snakecanvas");
 const ctx = canvas.getContext("2d");
-let backgroundSound = new Audio("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/creepy.mp3");
+let backgroundSound = new AudioController();
 let background = new Image();
 background.src = "/halloween.jpg";
 
@@ -65,15 +54,25 @@ const snake_col = "limegreen";
 const snake_border = "darkred";
 
 main();
-backgroundSound.play();
+backgroundSound.startMusic();
 createFood();
 
 document.addEventListener("keydown", directionChange);
 
+// function gameOverGame() {
+//   this.audioController.gameOver();
+//   document.getElementById('game-over-text').classList.add('visible');
+// }
+
+
 function main() {
-  if (gameOver()) {
-    alert("Oh no! You lose");
-    document.location.reload();
+  if (isGameOver()) {
+    backgroundSound.gameOver();
+    closeButton.addEventListener("click", toggleModal);
+    window.addEventListener("click", windowOnClick);
+    //document.getElementById('gameovertext').classList.add('visible');
+    // alert("Oh no! You lose");
+    // document.location.reload();
   }
   directionChanging = false;
   setTimeout(function onTick() {
@@ -122,7 +121,7 @@ function drawSnakeBody(snakeBody) {
   ctx.fillRect(snakeBody.x, snakeBody.y, 20, 20);
   ctx.strokeRect(snakeBody.x, snakeBody.y, 20, 20);
 }
-function gameOver() {
+function isGameOver() {
   for (let i = 1; i < snake.length; i++) {
     if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
   }
@@ -131,7 +130,7 @@ function gameOver() {
   const bottomWallCollision = snake[0].y > canvas.height - 20;
   const leftWallCollision = snake[0].x < 0;
   const rightWallCollision = snake[0].x > canvas.width - 20;
-  return topWallCollision || bottomWallCollision || leftWallCollision || rightWallCollision 
+  return topWallCollision || bottomWallCollision || leftWallCollision || rightWallCollision
 }
 
 function randomFood(min, max) {
@@ -149,7 +148,7 @@ function createFood() {
 
 function createFoodTwo() {
   xFood = randomFood(10, canvas.width - 10);
-  yFood= randomFood(10, canvas.height - 10);
+  yFood = randomFood(10, canvas.height - 10);
 }
 
 
@@ -198,9 +197,9 @@ function moveSnake() {
     scoreNum += 10;
     document.getElementById("scoreNum").innerHTML = scoreNum;
     createFood();
-  if (scoreNum === 20 ) {
+    if (scoreNum === 100) {
       alert("You win yehuuuuu");
-      document.location.reload();
+      backgroundSound.victory();
     }
   } else {
     snake.pop();
@@ -208,3 +207,20 @@ function moveSnake() {
 }
 
 
+//popup 
+
+var modal = document.querySelector(".modal");
+var closeButton = document.querySelector(".close-button");
+
+function toggleModal() {
+  modal.classList.toggle("show-modal");
+}
+
+function windowOnClick(event) {
+  if (event.target === modal) {
+    toggleModal();
+  }
+}
+
+closeButton.addEventListener("click", toggleModal);
+window.addEventListener("click", windowOnClick);
