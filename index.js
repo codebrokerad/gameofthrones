@@ -83,7 +83,7 @@ function superFood() {
   setTimeout(function () {
     createSuperFood();
     superFood();
-  }, 2000);
+  }, 3000);
 }
 
 function clearCanvas() {
@@ -110,7 +110,7 @@ function drawFood() {
 }
 
 function drawSuperFood() {
-  ctx.fillStyle = "red";
+  ctx.fillStyle = "DeepSkyBlue";
   ctx.strokestyle = "blue";
   ctx.fillRect(xSuperFood, ySuperFood, 20, 20);
 }

@@ -5,11 +5,14 @@
 }
 
 #canvas {
+  margin:0px auto;
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-image: "https://cdn.pixabay.com/photo/2018/10/20/22/22/halloween-3761909_1280.jpg";
+  display: flex;
+  align-items: center;
 }
 
 body{
@@ -17,10 +20,10 @@ body{
   justify-content: center;
   align-content: center;
   position: fixed;
-  background: url('/halloweenbackground.jpg') no-repeat;
-  background-size: cover;
-  margin-left: 300px;
-  margin-top: 65px;
+  background: url('/halloweenbackground.jpg') 0 0 no-repeat ;
+  background-size: auto;
+  margin-left: 125px;
+  margin-top: 75px;
   padding-right: 200px;
   
 }
