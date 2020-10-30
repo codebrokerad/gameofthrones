@@ -1,40 +1,65 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Snake Game</title>
-
-  <link rel="stylesheet" href="./style.css">
+    <title>Snake Game</title>
+    <link rel="secondhtml" href="game.html">
 </head>
-
+<style>
+@font-face {
+  font-family: "Creepy";
+  src: url("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Fonts/Creepy.woff?raw=true") format("woff"), url("https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Fonts/Creepy.woff2?raw=true") format("woff2")
+}
+    body {
+        background: url(Halloween-Full-Moon-i842488914.jpg) no-repeat center fixed;
+        background-size: cover;
+    }
+    #start-button {
+        text-align: center;
+        padding: 20px;
+        border: coral;
+        border-style: outset;
+        border-radius: 50%;
+        background-color: #84D5D8;
+        cursor: pointer;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    #start-button a {
+        font-size: 45px;
+        text-decoration: none;
+        color: orange;
+        font-family: Creepy, serif;
+    }
+</style>
 <body>
-
-  <div></div>
- 
-
-  <div id="overalTable">
-    <div id="scoreTable">
-      <h3 id="score"><img src="pumpkin.png" alt="pumpkin image" width="60" height="60"> Score </h3>
-      <p id="scoreNum">0</p>
+    <audio autoplay>
+        <source src="https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/victory.wav'"
+          type="audio/ogg"> </audio>
+    <!-- Added for the Welcome Page -->
+    <div id="game-intro">
+        <button id="start-button">
+            <a href="game.html">Click to Start</a>
+        </button>
     </div>
-    <div id="levelTable">
-      <h3 id="level"><img src="zombie2.jpeg" alt="zombie image" width="60" height="60"> Level </h3>
-      <p id="levelNum">1</p>
-    </div>
-  </div> 
-  <canvas id="snakecanvas" width="800" height="800" style="border:1px solid #D3D3D3;"></canvas>
-  <script src="./index.js"></script>
-
-
-  <!-- popup -->
-  <div class="modal">
-    <div class="modal-content">
-        <span class="close-button">×</span>
-        <h1>Game Over</h1>
-        <h3>Click to Restart</h3>
-    </div>
-
-  </div>
+    <script src="index.js"></script>
 </body>
-
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
