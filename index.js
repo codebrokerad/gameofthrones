@@ -1,8 +1,33 @@
+//sound
+class AudioController {
+  constructor() {
+    this.bgMusic = new Audio('https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/creepy.mp3');
+    this.victorySound = new Audio("./Ta Da-SoundBible.com-1884170640.mp3");
+    this.gameOverSound = new Audio("./Crash-sound-effect.mp3");
+    this.bgMusic.volume = 0.5;
+    this.bgMusic.loop = true;
+  }
+  startMusic() {
+    this.bgMusic.play();
+  }
+  stopMusic() {
+    this.bgMusic.pause();
+    this.bgMusic.currentTime = 0;
+  }
+  victory() {
+    this.stopMusic();
+    this.victorySound.play();
+  }
+  gameOver() {
+    this.stopMusic();
+    this.gameOverSound.play();
+  }
+}
+
+
 const canvas = document.getElementById("snakecanvas");
 const ctx = canvas.getContext("2d");
-let backgroundSound = new Audio(
-  "https://raw.githubusercontent.com/WebDevSimplified/Mix-Or-Match/master/Assets/Audio/creepy.mp3"
-);
+let backgroundSound = new AudioController();
 let background = new Image();
 background.src = "/halloween.jpg";
 
@@ -29,22 +54,19 @@ const snake_col = "limegreen";
 const snake_border = "darkred";
 
 main();
-backgroundSound.play();
+backgroundSound.startMusic();
 createFood();
 createSuperFood();
 superFood();
 
 document.addEventListener("keydown", directionChange);
 
-function gameOver() {
-  alert("Oh no! You lose");
-  document.location.reload();
-}
-
 function main() {
-  if (gameOver()) {
-    alert("Oh no! You lose");
-    document.location.reload();
+  if (isGameOver()) {
+    backgroundSound.gameOver();
+    if(confirm("YOU LOST! PRESS OK TO RESTART.")){
+      window.location ='/'
+    }
   }
   directionChanging = false;
   setTimeout(function onTick() {
@@ -100,7 +122,8 @@ function drawSnakeBody(snakeBody) {
   ctx.fillRect(snakeBody.x, snakeBody.y, 20, 20);
   ctx.strokeRect(snakeBody.x, snakeBody.y, 20, 20);
 }
-function gameOver() {
+
+function isGameOver() {
   for (let i = 1; i < snake.length; i++) {
     if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
   }
@@ -109,12 +132,7 @@ function gameOver() {
   const bottomWallCollision = snake[0].y > canvas.height - 20;
   const leftWallCollision = snake[0].x < 0;
   const rightWallCollision = snake[0].x > canvas.width - 20;
-  return (
-    topWallCollision ||
-    bottomWallCollision ||
-    leftWallCollision ||
-    rightWallCollision
-  );
+  return (topWallCollision || bottomWallCollision || leftWallCollision || rightWallCollision)
 }
 
 function randomFood(min, max) {
@@ -135,12 +153,8 @@ function createSuperFood() {
   ySuperFood = randomFood(0, canvas.height - 10);
 }
 
-function directionChange(e) {
-  //left = 37;
-  //right key= 39;
-  //up key= 38;
-  //down key = 40;
 
+function directionChange(e) {
   if (directionChanging) return;
   directionChanging = true;
   const key = e.keyCode;
@@ -170,26 +184,57 @@ function directionChange(e) {
   }
 }
 
-let scoreNum = 0;
+let scoreNum = 0.0;
+let levelNum= 1.0;
+let newLevelNum = 0.0;
+
+arrayNames.forEach(function (name) {
+  console.log(name);
+})
 
 function moveSnake() {
   const head = { x: snake[0].x + dx, y: snake[0].y + dy };
   snake.unshift(head);
   const snakeAteFood = snake[0].x === xFood && snake[0].y === yFood;
+
   const snakeAteSuperFood = snake[0].x === xSuperFood && snake[0].y === ySuperFood;
   if (snakeAteFood) {
     scoreNum += 10;
+    newLevelNum= scoreNum/50;
     document.getElementById("scoreNum").innerHTML = scoreNum;
     createFood();
     createSuperFood();
-    if (scoreNum === 100) {
-      alert("You win!!!");
-      document.location.reload();
-    }
+    if(newLevelNum>levelNum){
+      levelNum++
+      document.getElementById("levelNum").innerHTML = levelNum;
+      scoreNum += 10;
+      newLevelNum= scoreNum/50;
+      alert("New Level");
+      backgroundSound.victory();
+    } 
   } else if (snakeAteSuperFood) {
     scoreNum += 20;
     document.getElementById("scoreNum").innerHTML = scoreNum;
-  } else {
+  }  else {
     snake.pop();
   }
 }
+
+
+//popup 
+
+var modal = document.querySelector(".modal");
+var closeButton = document.querySelector(".close-button");
+
+function toggleModal() {
+  modal.classList.toggle("show-modal");
+}
+
+function windowOnClick(event) {
+  if (event.target === modal) {
+    toggleModal();
+  }
+}
+
+closeButton.addEventListener("click", toggleModal);
+window.addEventListener("click", windowOnClick);
